@@ -1,19 +1,63 @@
 #!/bin/sh
 set -eu
 
-key_ssn='System''Serial''Number'
-key_mlb='M''LB'
-key_uuid='System''UUID'
-key_rom='R''OM'
-pattern="<key>[[:space:]]*(${key_ssn}|${key_mlb}|${key_uuid}|${key_rom})[[:space:]]*</key>"
+python - <<'PY'
+import plistlib
+import re
+import subprocess
+import sys
 
-matches=$(git grep --cached -I -n -E "$pattern" -- . ':!.githooks/pre-commit' || true)
+template_path = "EFI/OC/config.template.plist"
+placeholder_values = {
+    "SystemSerialNumber": "CHANGEME0000",
+    "MLB": "CHANGEME000000000",
+    "SystemUUID": "00000000-0000-0000-0000-000000000000",
+    "ROM": b"\x00\x00\x00\x00\x00\x00",
+}
+identity_key_pattern = re.compile(
+    rb"<key>\s*(SystemSerialNumber|MLB|SystemUUID|ROM)\s*</key>"
+)
 
-if [ -n "$matches" ]; then
-  echo "ERROR: staged files contain OpenCore identity fields."
-  echo "Remove per-machine identity data before committing."
-  echo "$matches"
-  exit 1
-fi
 
-exit 0
+def git_bytes(*args):
+    return subprocess.check_output(["git", *args])
+
+
+staged = git_bytes("diff", "--cached", "--name-only", "-z").split(b"\0")
+violations = []
+
+for raw_path in staged:
+    if not raw_path:
+        continue
+    path = raw_path.decode("utf-8", errors="surrogateescape")
+    if path == ".githooks/pre-commit":
+        continue
+
+    try:
+        blob = git_bytes("show", f":{path}")
+    except subprocess.CalledProcessError:
+        continue
+
+    if path == template_path:
+        try:
+            config = plistlib.loads(blob)
+            generic = config["PlatformInfo"]["Generic"]
+        except Exception as exc:
+            violations.append(f"{path}: cannot verify placeholder SMBIOS values: {exc}")
+            continue
+
+        for key, expected in placeholder_values.items():
+            if generic.get(key) != expected:
+                violations.append(f"{path}: {key} is not the approved placeholder")
+        continue
+
+    if identity_key_pattern.search(blob):
+        violations.append(f"{path}: contains OpenCore SMBIOS identity keys")
+
+if violations:
+    print("ERROR: staged files contain unsafe OpenCore identity data.")
+    print("Commit config.template.plist only with approved placeholders.")
+    for item in violations:
+        print(f" - {item}")
+    sys.exit(1)
+PY

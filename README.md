@@ -32,6 +32,13 @@
 | SSDT-EC-USBX-DESKTOP.aml | Adds desktop EC/USBX support for macOS USB power properties and EC compatibility. | https://raw.githubusercontent.com/dortania/Getting-Started-With-ACPI/master/extra-files/compiled/SSDT-EC-USBX-DESKTOP.aml |
 | SSDT-AWAC.aml | Handles common AWAC/RTC system clock compatibility for macOS. | https://raw.githubusercontent.com/dortania/Getting-Started-With-ACPI/master/extra-files/compiled/SSDT-AWAC.aml |
 
+## Config Strategy
+
+- `EFI/OC/config.template.plist` is tracked as the public template.
+- `EFI/OC/config.plist` is local-only, ignored by Git, and may be copied from the template for testing.
+- Real SMBIOS identity values must never be committed. The template uses obvious placeholders only.
+- OpenCore 1.0.7 `ocvalidate` does not support `Misc > Security > AllowNvramReset`, so that key is not present in this template.
+
 ## Added Kexts
 
 | Kext | Version | Source |
