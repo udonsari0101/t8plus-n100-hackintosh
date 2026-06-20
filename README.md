@@ -17,6 +17,13 @@
 - Core boot kexts added from official GitHub RELEASE archives.
 - No config.plist, ACPI files, Wi-Fi kexts, Bluetooth kexts, or generated SMBIOS values have been added.
 
+## Added Drivers
+
+| Driver | Source |
+| --- | --- |
+| OpenRuntime.efi | OpenCorePkg 1.0.7 RELEASE |
+| OpenHfsPlus.efi | OpenCorePkg 1.0.7 RELEASE |
+
 ## Added Kexts
 
 | Kext | Version | Source |
@@ -32,5 +39,4 @@
 
 - Confirm target macOS version.
 - Gather verified hardware details before adding ACPI or config.plist settings.
-- Decide whether HFS support should use an approved HfsPlus.efi source or OpenHfsPlus.efi.
 - Add Wi-Fi and Bluetooth kexts only after approval.
