@@ -1,0 +1,19 @@
+#!/bin/sh
+set -eu
+
+key_ssn='System''Serial''Number'
+key_mlb='M''LB'
+key_uuid='System''UUID'
+key_rom='R''OM'
+pattern="<key>[[:space:]]*(${key_ssn}|${key_mlb}|${key_uuid}|${key_rom})[[:space:]]*</key>"
+
+matches=$(git grep --cached -I -n -E "$pattern" -- . ':!.githooks/pre-commit' || true)
+
+if [ -n "$matches" ]; then
+  echo "ERROR: staged files contain OpenCore identity fields."
+  echo "Remove per-machine identity data before committing."
+  echo "$matches"
+  exit 1
+fi
+
+exit 0

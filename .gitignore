@@ -1,0 +1,60 @@
+# OS metadata
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100/
+.Trashes/
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Local editor and tool state
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs, temporary files, and rejects
+*.log
+*.tmp
+*.bak
+*.orig
+*.rej
+
+# Downloads, installers, disk images, and archives
+downloads/*
+!downloads/.gitkeep
+*.zip
+*.7z
+*.rar
+*.tar
+*.tar.gz
+*.tgz
+*.dmg
+*.iso
+*.img
+*.raw
+*.exe
+*.msi
+*.pkg
+
+# OpenCore per-machine and generated identity/config files
+EFI/OC/config.plist
+EFI/OC/config-*.plist
+**/config.plist
+**/config-*.plist
+**/nvram*.plist
+**/opencore-*.txt
+**/macserial*.txt
+**/smbios*.txt
+**/SMBIOS*.txt
+**/serial*.txt
+**/Serial*.txt
+**/uuid*.txt
+**/UUID*.txt
+**/rom*.txt
+**/ROM*.txt
+
+# Keep empty project directories trackable
+!.gitkeep
