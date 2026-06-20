@@ -7,4 +7,5 @@
 *.dsl text eol=lf
 
 EFI/**/*.efi binary
+EFI/OC/ACPI/**/*.aml binary
 EFI/OC/Kexts/** -text

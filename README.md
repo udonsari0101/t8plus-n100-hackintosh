@@ -15,7 +15,8 @@
 - Clean OpenCore-style EFI folder structure created.
 - OpenCore 1.0.7 RELEASE base files added.
 - Core boot kexts added from official GitHub RELEASE archives.
-- No config.plist, ACPI files, Wi-Fi kexts, Bluetooth kexts, or generated SMBIOS values have been added.
+- Minimal prebuilt ACPI SSDTs added from official Dortania resources.
+- No config.plist, Wi-Fi kexts, Bluetooth kexts, USB maps, machine-specific DSDT patches, or generated SMBIOS values have been added.
 
 ## Added Drivers
 
@@ -23,6 +24,13 @@
 | --- | --- |
 | OpenRuntime.efi | OpenCorePkg 1.0.7 RELEASE |
 | OpenHfsPlus.efi | OpenCorePkg 1.0.7 RELEASE |
+
+## Added ACPI
+
+| File | Purpose | Source |
+| --- | --- | --- |
+| SSDT-EC-USBX-DESKTOP.aml | Adds desktop EC/USBX support for macOS USB power properties and EC compatibility. | https://raw.githubusercontent.com/dortania/Getting-Started-With-ACPI/master/extra-files/compiled/SSDT-EC-USBX-DESKTOP.aml |
+| SSDT-AWAC.aml | Handles common AWAC/RTC system clock compatibility for macOS. | https://raw.githubusercontent.com/dortania/Getting-Started-With-ACPI/master/extra-files/compiled/SSDT-AWAC.aml |
 
 ## Added Kexts
 
