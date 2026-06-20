@@ -13,11 +13,24 @@
 
 - Project directory initialized.
 - Clean OpenCore-style EFI folder structure created.
-- No EFI binaries, kexts, drivers, ACPI files, tools, or config.plist files have been generated or downloaded.
+- OpenCore 1.0.7 RELEASE base files added.
+- Core boot kexts added from official GitHub RELEASE archives.
+- No config.plist, ACPI files, Wi-Fi kexts, Bluetooth kexts, or generated SMBIOS values have been added.
+
+## Added Kexts
+
+| Kext | Version | Source |
+| --- | --- | --- |
+| Lilu.kext | 1.7.2 | https://github.com/acidanthera/Lilu/releases/download/1.7.2/Lilu-1.7.2-RELEASE.zip |
+| VirtualSMC.kext | 1.3.7 | https://github.com/acidanthera/VirtualSMC/releases/download/1.3.7/VirtualSMC-1.3.7-RELEASE.zip |
+| WhateverGreen.kext | 1.7.0 | https://github.com/acidanthera/WhateverGreen/releases/download/1.7.0/WhateverGreen-1.7.0-RELEASE.zip |
+| AppleALC.kext | 1.9.7 | https://github.com/acidanthera/AppleALC/releases/download/1.9.7/AppleALC-1.9.7-RELEASE.zip |
+| RestrictEvents.kext | 1.1.6 | https://github.com/acidanthera/RestrictEvents/releases/download/1.1.6/RestrictEvents-1.1.6-RELEASE.zip |
+| RealtekRTL8111.kext | V3.0.0 release, bundle 3.0.4 | https://github.com/Mieze/RTL8111_driver_for_OS_X/releases/download/v3.0.0/RealtekRTL8111-V3.0.0.zip |
 
 ## Next Steps
 
 - Confirm target macOS version.
-- Confirm OpenCore version to use.
-- Gather verified hardware details before adding ACPI, drivers, kexts, or config.plist settings.
-- Download required official OpenCore components and trusted kext releases only after approval.
+- Gather verified hardware details before adding ACPI or config.plist settings.
+- Decide whether HFS support should use an approved HfsPlus.efi source or OpenHfsPlus.efi.
+- Add Wi-Fi and Bluetooth kexts only after approval.
