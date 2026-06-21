@@ -1,5 +1,10 @@
 # Firebat T8 Plus Hackintosh Project
 
+Public-safe OpenCore work log for the Firebat T8 Plus N100 mini PC.
+This repository intentionally keeps only shareable EFI files, templates, and
+sanitized documentation. Per-machine OpenCore identity values and local
+working configs are not committed here.
+
 ## Hardware
 
 - Mini PC: Firebat T8 Plus
@@ -16,7 +21,13 @@
 - OpenCore 1.0.7 RELEASE base files added.
 - Core boot kexts added from official GitHub RELEASE archives.
 - Minimal prebuilt ACPI SSDTs added from official Dortania resources.
-- No config.plist, Wi-Fi kexts, Bluetooth kexts, USB maps, machine-specific DSDT patches, or generated SMBIOS values have been added.
+- OpenCore picker boot has been confirmed from an EFI-only USB.
+- macOS Sonoma Recovery GUI has been reached with a private working profile.
+- USB keyboard/mouse input in Recovery has been reached after combining
+  SSDT-PLUG-ALT with USBToolBox.kext and UTBDefault.kext.
+- Windows is being preserved for a Windows/macOS dual-boot plan.
+- No public config.plist, generated SMBIOS values, Wi-Fi kexts, Bluetooth
+  kexts, or final USB map have been added.
 
 ## Added Drivers
 
@@ -39,6 +50,15 @@
 - Real SMBIOS identity values must never be committed. The template uses obvious placeholders only.
 - OpenCore 1.0.7 `ocvalidate` does not support `Misc > Security > AllowNvramReset`, so that key is not present in this template.
 
+## Public Progress Docs
+
+- [Project summary](docs/ProjectSummary.md)
+- [Progress report](docs/ProgressReport.md)
+- [Boot findings](docs/BootFindings.md)
+- [Limitations](docs/Limitations.md)
+- [Next steps](docs/NextSteps.md)
+- [First picker boot log](docs/BootLog.md)
+
 ## Added Kexts
 
 | Kext | Version | Source |
@@ -52,6 +72,7 @@
 
 ## Next Steps
 
-- Confirm target macOS version.
-- Gather verified hardware details before adding ACPI or config.plist settings.
-- Add Wi-Fi and Bluetooth kexts only after approval.
+- Preserve Windows and install macOS only into the prepared unallocated space.
+- Keep using USB OpenCore until both Windows and macOS boot paths are proven.
+- Build a real USB map later and remove the temporary UTBDefault.kext setup.
+- Add Intel AX210 Wi-Fi/Bluetooth support only after the base install path is stable.
