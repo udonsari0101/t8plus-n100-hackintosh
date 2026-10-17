@@ -1,78 +1,56 @@
-# Firebat T8 Plus Hackintosh Project
+# Firebat T8 Plus (Intel N100) — macOS Sonoma OpenCore baseline
 
-Public-safe OpenCore work log for the Firebat T8 Plus N100 mini PC.
-This repository intentionally keeps only shareable EFI files, templates, and
-sanitized documentation. Per-machine OpenCore identity values and local
-working configs are not committed here.
+A sanitized, reproducible OpenCore EFI for running **macOS Sonoma 14.8.7 (build 23J520)** on the
+**Firebat T8 Plus** mini PC (**Intel N100** / Alder Lake-N). This is a **stable fallback baseline**:
+the machine boots and networks reliably, but the N100 iGPU is **not hardware-accelerated** (it runs on
+the firmware GOP framebuffer only). Custom GPU-driver work is a separate, ongoing effort and is **not**
+part of this baseline.
 
 ## Hardware
 
-- Mini PC: Firebat T8 Plus
-- CPU: Intel N100 (Alder Lake-N)
-- Memory: 16GB LPDDR5
-- Wi-Fi: Intel AX210
-- Ethernet: Realtek RTL8111/8168
-- Storage: 512GB SATA SSD
+- Firebat T8 Plus · Intel **N100** (Alder Lake-N, Xe-LP iGPU `8086:46D1`) · 16 GB LPDDR5
+- Intel **AX210** Wi-Fi + Bluetooth · **Realtek RTL8111** Ethernet
 
-## Current Project Status
+## Status
 
-- Project directory initialized.
-- Clean OpenCore-style EFI folder structure created.
-- OpenCore 1.0.7 RELEASE base files added.
-- Core boot kexts added from official GitHub RELEASE archives.
-- Minimal prebuilt ACPI SSDTs added from official Dortania resources.
-- OpenCore picker boot has been confirmed from an EFI-only USB.
-- macOS Sonoma Recovery GUI has been reached with a private working profile.
-- USB keyboard/mouse input in Recovery has been reached after combining
-  SSDT-PLUG-ALT with USBToolBox.kext and UTBDefault.kext.
-- Windows is being preserved for a Windows/macOS dual-boot plan.
-- No public config.plist, generated SMBIOS values, Wi-Fi kexts, Bluetooth
-  kexts, or final USB map have been added.
+| Feature | Status | Notes |
+|---|---|---|
+| macOS Sonoma 23J520 boot | WORKING | OpenCore 1.0.7 |
+| 3440×1440 GOP display | WORKING | firmware framebuffer; **unaccelerated, no Metal** |
+| Intel AX210 Wi-Fi | WORKING | AirportItlwm; 802.11ac (no 6 GHz / AWDL / AirDrop / Continuity) |
+| Intel AX210 Bluetooth | WORKING | IntelBluetoothFirmware + BlueToolFixup + IntelBTPatcher |
+| Realtek Ethernet | WORKING | RealtekRTL8111 |
+| Audio | WORKING (basic output) | AppleALC |
+| N100 GPU acceleration | NOT IMPLEMENTED | no Intel graphics kext, no IOAccelerator |
+| Metal | NOT IMPLEMENTED | — |
+| Hardware video decode / acceleration | NOT IMPLEMENTED | video decodes on CPU |
+| Native Alder Lake-N display driver | NOT IMPLEMENTED | — |
+| Sleep / wake | UNVERIFIED | not characterized |
 
-## Added Drivers
+Only features marked WORKING are runtime-confirmed on the real machine. Everything GPU-related is
+deliberately **NOT IMPLEMENTED** in this baseline.
 
-| Driver | Source |
-| --- | --- |
-| OpenRuntime.efi | OpenCorePkg 1.0.7 RELEASE |
-| OpenHfsPlus.efi | OpenCorePkg 1.0.7 RELEASE |
+## You must generate these yourself
 
-## Added ACPI
+- **SMBIOS identity** (`SystemSerialNumber`, `MLB`, `SystemUUID`, `ROM`): the template ships with
+  obvious placeholders. Generate your own with [GenSMBIOS](https://github.com/corpnewt/GenSMBIOS) for
+  `iMacPro1,1` and never commit them.
+- **USB mapping** (`UTBMap.kext` via [USBToolBox](https://github.com/USBToolBox/tool)): machine-specific.
 
-| File | Purpose | Source |
-| --- | --- | --- |
-| SSDT-EC-USBX-DESKTOP.aml | Adds desktop EC/USBX support for macOS USB power properties and EC compatibility. | https://raw.githubusercontent.com/dortania/Getting-Started-With-ACPI/master/extra-files/compiled/SSDT-EC-USBX-DESKTOP.aml |
-| SSDT-AWAC.aml | Handles common AWAC/RTC system clock compatibility for macOS. | https://raw.githubusercontent.com/dortania/Getting-Started-With-ACPI/master/extra-files/compiled/SSDT-AWAC.aml |
+## Use
 
-## Config Strategy
+1. **Fetch components:** run `./fetch-efi-components.command`, or assemble manually using
+   [`components.lock.json`](components.lock.json) (exact upstream projects + versions). Third-party
+   kexts/drivers/OpenCore are **not** redistributed here — they are fetched from their official releases.
+2. Place the fetched kexts/drivers/OpenCore files into `EFI/OC/...` per `components.lock.json`.
+3. Copy `EFI/OC/config.template.plist` → `EFI/OC/config.plist`; fill in **your own** SMBIOS + USB map.
+4. Validate: `ocvalidate EFI/OC/config.plist` (must pass clean).
+5. Copy `EFI/` to your USB/ESP and boot.
 
-- `EFI/OC/config.template.plist` is tracked as the public template.
-- `EFI/OC/config.plist` is local-only, ignored by Git, and may be copied from the template for testing.
-- Real SMBIOS identity values must never be committed. The template uses obvious placeholders only.
-- OpenCore 1.0.7 `ocvalidate` does not support `Misc > Security > AllowNvramReset`, so that key is not present in this template.
+See [`docs/Setup.md`](docs/Setup.md) and [`docs/Limitations.md`](docs/Limitations.md).
 
-## Public Progress Docs
+## Scope / credits
 
-- [Project summary](docs/ProjectSummary.md)
-- [Progress report](docs/ProgressReport.md)
-- [Boot findings](docs/BootFindings.md)
-- [Limitations](docs/Limitations.md)
-- [Next steps](docs/NextSteps.md)
-- [First picker boot log](docs/BootLog.md)
-
-## Added Kexts
-
-| Kext | Version | Source |
-| --- | --- | --- |
-| Lilu.kext | 1.7.2 | https://github.com/acidanthera/Lilu/releases/download/1.7.2/Lilu-1.7.2-RELEASE.zip |
-| VirtualSMC.kext | 1.3.7 | https://github.com/acidanthera/VirtualSMC/releases/download/1.3.7/VirtualSMC-1.3.7-RELEASE.zip |
-| WhateverGreen.kext | 1.7.0 | https://github.com/acidanthera/WhateverGreen/releases/download/1.7.0/WhateverGreen-1.7.0-RELEASE.zip |
-| AppleALC.kext | 1.9.7 | https://github.com/acidanthera/AppleALC/releases/download/1.9.7/AppleALC-1.9.7-RELEASE.zip |
-| RestrictEvents.kext | 1.1.6 | https://github.com/acidanthera/RestrictEvents/releases/download/1.1.6/RestrictEvents-1.1.6-RELEASE.zip |
-| RealtekRTL8111.kext | V3.0.0 release, bundle 3.0.4 | https://github.com/Mieze/RTL8111_driver_for_OS_X/releases/download/v3.0.0/RealtekRTL8111-V3.0.0.zip |
-
-## Next Steps
-
-- Preserve Windows and install macOS only into the prepared unallocated space.
-- Keep using USB OpenCore until both Windows and macOS boot paths are proven.
-- Build a real USB map later and remove the temporary UTBDefault.kext setup.
-- Add Intel AX210 Wi-Fi/Bluetooth support only after the base install path is stable.
+This repository contains only the **sanitized configuration template, ACPI SSDTs, and setup tooling**.
+It redistributes no Apple software and no third-party binaries; OpenCore and all kexts are obtained
+from their official open-source releases (see `components.lock.json`).

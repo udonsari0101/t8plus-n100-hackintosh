@@ -1,35 +1,29 @@
 # Limitations
 
-## Graphics
+This baseline is a **stable fallback**, not a fully accelerated Mac. Known limitations:
 
-Intel N100 uses Alder Lake-N graphics, which is not a normal supported macOS
-iGPU target. This project currently treats display output as a basic VESA-style
-boot/install path rather than a fully accelerated graphics setup.
+## Graphics (the big one)
 
-Expected limitations:
+- **No GPU acceleration.** The Intel N100 (Alder Lake-N / Xe-LP, Gen12) has no macOS driver: Apple's
+  newest Intel graphics driver is Ice Lake (Gen11), two IP generations older. The desktop runs on the
+  firmware **GOP framebuffer** (~18 MB, no Metal, no IOAccelerator).
+- Consequences: no Metal; no hardware video decode; WindowServer/compositing runs on the CPU, so
+  heavy video (e.g. fullscreen/4K/high-bitrate VP9/AV1) can be choppy or can overload the compositor.
+  Light use and modest-resolution H.264 video are usable.
+- The display resolution is whatever the firmware GOP provides; macOS cannot mode-set on this
+  unaccelerated path.
 
-- No normal macOS graphics acceleration target is established.
-- Installer and recovery testing prioritize visibility and stability over GPU
-  features.
-- This machine should not be presented as a polished daily-driver Mac.
+## Networking
 
-## USB
+- Wi-Fi is **AirportItlwm** (Intel AX210): 802.11ac works; **no** 6 GHz / Wi-Fi 6E, and **no**
+  AWDL-based features (AirDrop, Handoff, Continuity, Sidecar).
+- Bluetooth works (pairing confirmed), subject to the usual third-party Intel Bluetooth caveats.
 
-USBToolBox.kext plus UTBDefault.kext is a temporary installer diagnostic. If the
-macOS install succeeds, the project should generate a proper USB map and remove
-UTBDefault.kext.
+## Not characterized
 
-## Wi-Fi And Bluetooth
+- Sleep/wake, USB-C/Thunderbolt behavior, and power management are not validated here — treat as
+  UNVERIFIED and test on your own hardware.
 
-Intel AX210 Wi-Fi and Bluetooth support are not finalized in the public EFI.
-Those kexts should be added only after the base install and boot path are stable.
+## Identity / safety
 
-## Audio And Ethernet
-
-AppleALC and RealtekRTL8111 are present in the public EFI, but post-install
-behavior still needs to be tested and documented.
-
-## Dual Boot
-
-The plan is to preserve Windows. OpenCore should stay USB-based until both
-Windows and macOS boot paths are proven and recoverable.
+- You must supply your own SMBIOS and USB map. The shipped template has placeholders only.

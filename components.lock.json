@@ -1,0 +1,203 @@
+{
+  "target": "macOS Sonoma 14.8.7 / 23J520",
+  "opencore": "1.0.7",
+  "note": "Third-party binaries are NOT redistributed here; fetch from the upstream releases below. SMBIOS and UTBMap are machine-specific and must be generated locally.",
+  "components": [
+    {
+      "name": "OpenCore",
+      "category": "bootstrap",
+      "version": "1.0.7",
+      "dest": "EFI/OC/OpenCore.efi",
+      "upstream": "https://github.com/acidanthera/OpenCorePkg",
+      "fetch": {
+        "type": "github-release-zip",
+        "url": "https://github.com/acidanthera/OpenCorePkg/releases/download/1.0.7/OpenCore-1.0.7-RELEASE.zip",
+        "extract": "X64/EFI/OC/OpenCore.efi"
+      }
+    },
+    {
+      "name": "BOOTx64",
+      "category": "bootstrap",
+      "version": "1.0.7",
+      "dest": "EFI/BOOT/BOOTx64.efi",
+      "upstream": "https://github.com/acidanthera/OpenCorePkg",
+      "fetch": {
+        "type": "github-release-zip",
+        "url": "https://github.com/acidanthera/OpenCorePkg/releases/download/1.0.7/OpenCore-1.0.7-RELEASE.zip",
+        "extract": "X64/EFI/BOOT/BOOTx64.efi"
+      }
+    },
+    {
+      "name": "OpenRuntime",
+      "category": "driver",
+      "version": "1.0.7",
+      "dest": "EFI/OC/Drivers/OpenRuntime.efi",
+      "upstream": "https://github.com/acidanthera/OpenCorePkg",
+      "fetch": {
+        "type": "github-release-zip",
+        "url": "https://github.com/acidanthera/OpenCorePkg/releases/download/1.0.7/OpenCore-1.0.7-RELEASE.zip",
+        "extract": "X64/EFI/OC/Drivers/OpenRuntime.efi"
+      }
+    },
+    {
+      "name": "OpenHfsPlus",
+      "category": "driver",
+      "version": "OcBinaryData",
+      "dest": "EFI/OC/Drivers/OpenHfsPlus.efi",
+      "upstream": "https://github.com/acidanthera/OcBinaryData",
+      "fetch": {
+        "type": "raw",
+        "url": "https://raw.githubusercontent.com/acidanthera/OcBinaryData/master/Drivers/OpenHfsPlus.efi"
+      }
+    },
+    {
+      "name": "AirportItlwm",
+      "category": "kext",
+      "version": "2.3.0",
+      "dest": "EFI/OC/Kexts/AirportItlwm.kext",
+      "upstream": "https://github.com/OpenIntelWireless/itlwm",
+      "local_sha256": "06242efe0c085c5ae9fe386efc964aeb4c7c639cbed1c4c156f049589eedc1f8",
+      "fetch": {
+        "type": "manual"
+      },
+      "note": "download the AirportItlwm build matching macOS Sonoma 14"
+    },
+    {
+      "name": "AppleALC",
+      "category": "kext",
+      "version": "1.9.7",
+      "dest": "EFI/OC/Kexts/AppleALC.kext",
+      "upstream": "https://github.com/acidanthera/AppleALC",
+      "local_sha256": "5b67211797985272949b352eff0bb797504903a2ea4598e2d75d0ceca0ed5aa4",
+      "fetch": {
+        "type": "github-release-zip",
+        "url": "https://github.com/acidanthera/AppleALC/releases/download/1.9.7/AppleALC-1.9.7-RELEASE.zip",
+        "extract": "AppleALC.kext"
+      }
+    },
+    {
+      "name": "BlueToolFixup",
+      "category": "kext",
+      "version": "2.7.2",
+      "dest": "EFI/OC/Kexts/BlueToolFixup.kext",
+      "upstream": "https://github.com/OpenIntelWireless/IntelBluetoothFirmware",
+      "local_sha256": "f3244382a43866138ff449b14f1e54fb069ad3e4b14cbc753858650efdbbce52",
+      "fetch": {
+        "type": "manual"
+      },
+      "note": "included in the IntelBluetoothFirmware release bundle"
+    },
+    {
+      "name": "IntelBluetoothFirmware",
+      "category": "kext",
+      "version": "2.4.0",
+      "dest": "EFI/OC/Kexts/IntelBluetoothFirmware.kext",
+      "upstream": "https://github.com/OpenIntelWireless/IntelBluetoothFirmware",
+      "local_sha256": "e2b5ae657b93c5d746acaa40652f6af96a305a892111f1dd0c8ea6a717a6c109",
+      "fetch": {
+        "type": "manual"
+      },
+      "note": "release bundle (also provides IntelBTPatcher + BlueToolFixup)"
+    },
+    {
+      "name": "IntelBTPatcher",
+      "category": "kext",
+      "version": "2.4.0",
+      "dest": "EFI/OC/Kexts/IntelBTPatcher.kext",
+      "upstream": "https://github.com/OpenIntelWireless/IntelBluetoothFirmware",
+      "local_sha256": "a0f75047d3f33dcd6143bb3200a5a4ef99f163bb3435dd04757bd68547259322",
+      "fetch": {
+        "type": "manual"
+      },
+      "note": "included in the IntelBluetoothFirmware release bundle"
+    },
+    {
+      "name": "Lilu",
+      "category": "kext",
+      "version": "1.7.2",
+      "dest": "EFI/OC/Kexts/Lilu.kext",
+      "upstream": "https://github.com/acidanthera/Lilu",
+      "local_sha256": "ff98508b40a1eb5fb477029db8886412520f8e39965279ea331c99e3d2e3b274",
+      "fetch": {
+        "type": "github-release-zip",
+        "url": "https://github.com/acidanthera/Lilu/releases/download/1.7.2/Lilu-1.7.2-RELEASE.zip",
+        "extract": "Lilu.kext"
+      }
+    },
+    {
+      "name": "RealtekRTL8111",
+      "category": "kext",
+      "version": "3.0.4",
+      "dest": "EFI/OC/Kexts/RealtekRTL8111.kext",
+      "upstream": "https://github.com/Mieze/RTL8111_driver_for_OS_X",
+      "local_sha256": "a9a99d105518bf2e1905321e35c68d127bb0414bca9ec0d40ad50cc43b55ef16",
+      "fetch": {
+        "type": "manual"
+      },
+      "note": "build from source or use a trusted release"
+    },
+    {
+      "name": "RestrictEvents",
+      "category": "kext",
+      "version": "1.1.6",
+      "dest": "EFI/OC/Kexts/RestrictEvents.kext",
+      "upstream": "https://github.com/acidanthera/RestrictEvents",
+      "local_sha256": "16979236f272c0500913882e5347e38d5bad1841ea619fe5a0311e9f768aea4e",
+      "fetch": {
+        "type": "github-release-zip",
+        "url": "https://github.com/acidanthera/RestrictEvents/releases/download/1.1.6/RestrictEvents-1.1.6-RELEASE.zip",
+        "extract": "RestrictEvents.kext"
+      }
+    },
+    {
+      "name": "USBToolBox",
+      "category": "kext",
+      "version": "1.2.0",
+      "dest": "EFI/OC/Kexts/USBToolBox.kext",
+      "upstream": "https://github.com/USBToolBox/kext",
+      "local_sha256": "c5c8dc205a079ee3f90b7875fb5ff622e4f15d32f29cf519123dab2822c422b7",
+      "fetch": {
+        "type": "manual"
+      },
+      "note": "official release"
+    },
+    {
+      "name": "UTBMap",
+      "category": "kext",
+      "version": "1.1",
+      "dest": "EFI/OC/Kexts/UTBMap.kext",
+      "upstream": "https://github.com/USBToolBox/tool",
+      "local_sha256": "",
+      "fetch": {
+        "type": "manual"
+      },
+      "note": "GENERATE your own USB map for this machine (do not reuse anyone else's)"
+    },
+    {
+      "name": "VirtualSMC",
+      "category": "kext",
+      "version": "1.3.7",
+      "dest": "EFI/OC/Kexts/VirtualSMC.kext",
+      "upstream": "https://github.com/acidanthera/VirtualSMC",
+      "local_sha256": "865f736ae87654ee31617692167c004bb3e282bf1d7b20d8e4ca353c6599068a",
+      "fetch": {
+        "type": "github-release-zip",
+        "url": "https://github.com/acidanthera/VirtualSMC/releases/download/1.3.7/VirtualSMC-1.3.7-RELEASE.zip",
+        "extract": "VirtualSMC.kext"
+      }
+    },
+    {
+      "name": "WhateverGreen",
+      "category": "kext",
+      "version": "1.7.0",
+      "dest": "EFI/OC/Kexts/WhateverGreen.kext",
+      "upstream": "https://github.com/acidanthera/WhateverGreen",
+      "local_sha256": "44b6273a8dcf4d89fa454c402f1626f57ec9a7efb3e3a2d4bd70eaef2c508562",
+      "fetch": {
+        "type": "github-release-zip",
+        "url": "https://github.com/acidanthera/WhateverGreen/releases/download/1.7.0/WhateverGreen-1.7.0-RELEASE.zip",
+        "extract": "WhateverGreen.kext"
+      }
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+#!/bin/sh
+set -eu
+
+# Reject AI/bot attribution in commit messages (policy: Claude/Anthropic/AI must
+# never appear as a contributor in either repository). Do not weaken.
+python - "$1" <<'PY'
+import re
+import sys
+
+msg = open(sys.argv[1], "r", encoding="utf-8", errors="surrogateescape").read()
+
+patterns = [
+    # Attribution trailers naming an AI/bot
+    r"(?im)^\s*(co-authored-by|generated-by|assisted-by|signed-off-by|authored-by|reviewed-by|committed-by)\s*:.*(claude|anthropic|openai|chatgpt|gpt|copilot|\bai\b|\bbot\b|llm)",
+    # "Generated with Claude/Anthropic/AI" style footers
+    r"(?i)generated with\s+.*(claude|anthropic|\bai\b)",
+    # Explicit AI authorship claims
+    r"(?i)\b(claude|anthropic)\b.*\b(wrote|authored|generated|co-?authored|assisted)\b",
+    r"(?i)\b(ai|llm)[- ]?(generated|authored|written|assisted)\b",
+    # robot emoji used by common AI commit footers
+    r"\U0001F916",
+]
+
+hits = [p for p in patterns if re.search(p, msg)]
+if hits:
+    sys.stderr.write("ERROR: commit message contains AI/bot attribution; remove it.\n")
+    sys.stderr.write("Policy: Claude/Anthropic/AI must never be credited as a contributor.\n")
+    for p in hits:
+        sys.stderr.write(" - matched pattern: %s\n" % p)
+    sys.exit(1)
+PY

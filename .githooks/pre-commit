@@ -1,6 +1,26 @@
 #!/bin/sh
 set -eu
 
+# --- Authorship identity guard (policy: ONLY the human identity may author/commit;
+#     never an AI/bot identity). Do not weaken. ---
+ALLOWED_NAME="udonsari0101"
+ALLOWED_EMAIL="udonsari0101@users.noreply.github.com"
+check_ident() {
+	who="$1"
+	ident="$2"
+	name=${ident%% <*}
+	rest=${ident#*<}
+	email=${rest%%>*}
+	if [ "$name" != "$ALLOWED_NAME" ] || [ "$email" != "$ALLOWED_EMAIL" ]; then
+		echo "ERROR: $who identity '$name <$email>' is not the approved human identity ($ALLOWED_NAME <$ALLOWED_EMAIL>)." >&2
+		echo "Refusing commit. Never commit under an AI/bot identity; never change git user.name/user.email." >&2
+		exit 1
+	fi
+}
+check_ident AUTHOR "$(git var GIT_AUTHOR_IDENT)"
+check_ident COMMITTER "$(git var GIT_COMMITTER_IDENT)"
+
+# --- SMBIOS / OpenCore identity leak guard (existing; do not weaken) ---
 python - <<'PY'
 import plistlib
 import re
