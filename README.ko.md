@@ -1,13 +1,15 @@
-<h1 align="center">
+<p align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="assets/logo/logo-dark.svg">
-    <img alt="Firebat T8 Plus — Intel N100에서 구동하는 macOS Sonoma" src="assets/logo/logo-light.svg" width="760">
+    <img alt="가운데를 가로지르는 소문자 intel 워드마크가 있는 무지개 Apple 실루엣 — Intel N100에서 구동하는 macOS Sonoma" src="assets/logo/logo-light.svg" width="700">
   </picture>
-</h1>
+</p>
+
+<h1 align="center">Firebat T8 Plus</h1>
 
 <p align="center">
-  <strong>Firebat T8 Plus</strong> — Intel N100에서 구동하는 macOS Sonoma<br>
-  <sub>비공식 커뮤니티 아트워크 · 클래식 매킨토시 레인보우 × Intel 실리콘 · Apple·Intel과 무관</sub>
+  <strong>Intel N100에서 구동하는 macOS Sonoma</strong><br>
+  <sub>비공식 커뮤니티 아트워크 · Apple·Intel과 무관</sub>
 </p>
 
 <p align="center">

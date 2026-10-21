@@ -1,26 +1,22 @@
 #!/usr/bin/env python3
-"""Render the Firebat T8 Plus character-art logo to themed SVGs.
+"""Render the rainbow-Apple x blue-intel character-art logo to themed SVGs.
 
-Reads two maintainable, aligned source files:
-  logo.txt   - the canonical UTF-8 character art (one glyph per cell; the
-               plain-text fallback)
-  logo.cmap  - the colour map (one code per cell; '.' = transparent)
+Single source of truth: `logo.txt` -- the canonical UTF-8 character matrix
+(the plain-text fallback). Colours are DERIVED from it by deterministic rules,
+so editing the art is enough (no separate colour file to keep in sync):
 
-and writes:
-  logo-light.svg  - neutrals tuned for the GitHub light canvas
-  logo-dark.svg   - neutrals tuned for the GitHub dark canvas
+  * the Intel oval + lowercase `intel` wordmark use the glyphs `@` and `*`, plus
+    the edge glyphs `. : +` that fall between the first and last `@`/`*` on a
+    row -> electric blue (code `I`);
+  * every other apple-body glyph (`# & % + : .`) -> one of six horizontal
+    rainbow bands by row (green at the top, cyan/blue at the bottom), per BANDS.
 
-The README swaps them with <picture> + prefers-color-scheme. Each colour run
-is positioned at its start column with textLength + spacingAndGlyphs, so
-horizontal alignment is exact regardless of the viewer's monospace metrics.
-The background is transparent.
+Writes `logo-light.svg` and `logo-dark.svg`; the README swaps them with
+`<picture>` + prefers-color-scheme. Each colour run is positioned at its start
+column with textLength + spacingAndGlyphs, so alignment is exact regardless of
+the viewer's monospace metrics. Background is transparent.
 
-Colour codes:
-  G Y O R V B  classic Macintosh six-colour rainbow (the bitten apple)
-  c s e        cool-blue / silver / steel silicon (the Intel N100 die)
-  W w          ink wordmark / muted sub-label (flip per theme)
-
-Run:  python render_logo.py      (no third-party dependencies)
+Run:  python render_logo.py      (no third-party dependencies, no network)
 """
 import os
 
@@ -31,42 +27,63 @@ PAD = FS * 0.5
 BASE = FS * 0.78
 FONT = ("ui-monospace,SFMono-Regular,Menlo,'Cascadia Mono',"
         "Consolas,'DejaVu Sans Mono',monospace")
-BLANKS = {" ", "⠀", "", "."}
+
+# six-colour rainbow band start rows (inclusive), tuned so all six show around
+# the central Intel oval; green at top -> cyan/blue at bottom.
+BANDS = [(0, "G"), (4, "Y"), (8, "O"), (11, "R"), (24, "V"), (28, "B")]
+OVAL_CHARS = set("@*")
+EDGE_CHARS = set(".:+")
 
 PAL_DARK = {
     "G": "#5FB44A", "Y": "#F6B600", "O": "#F07E17",
-    "R": "#E23B3B", "V": "#9A52B8", "B": "#2BA3DE",
-    "c": "#5AA9E6", "s": "#AEB9C6", "e": "#8795A6",
-    "W": "#E6EDF3", "w": "#9DA7B3",
+    "R": "#E23B3B", "V": "#9A52B8", "B": "#3566D6",
+    "I": "#33CFFF",   # electric Intel blue
 }
 PAL_LIGHT = {
     "G": "#4FA83C", "Y": "#E09400", "O": "#E86F0C",
-    "R": "#D83232", "V": "#7E3A9A", "B": "#1388C4",
-    "c": "#2E86C8", "s": "#8A94A2", "e": "#5E6B7A",
-    "W": "#1F2328", "w": "#55606C",
+    "R": "#D83232", "V": "#7E3A9A", "B": "#2A4FC0",
+    "I": "#0AA3E8",
 }
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 
 
-def load_grid():
-    g = open(os.path.join(HERE, "logo.txt"), encoding="utf-8").read().split("\n")
-    c = open(os.path.join(HERE, "logo.cmap"), encoding="utf-8").read().split("\n")
-    while g and g[-1] == "":
-        g.pop()
-    while c and c[-1] == "":
-        c.pop()
-    rows = []
-    for gi, ci in zip(g, c):
-        ci = (ci + "." * len(gi))[:len(gi)]
-        rows.append([(gi[i], ci[i]) for i in range(len(gi))])
-    return rows
+def band(row):
+    code = BANDS[0][1]
+    for start, c in BANDS:
+        if row >= start:
+            code = c
+    return code
 
 
-def _runs(row):
+def load_cells():
+    lines = open(os.path.join(HERE, "logo.txt"), encoding="utf-8").read().split("\n")
+    while lines and lines[-1] == "":
+        lines.pop()
+    cells = []
+    for r, line in enumerate(lines):
+        cols = [c for c, ch in enumerate(line) if ch in OVAL_CHARS]
+        lo, hi = (min(cols), max(cols)) if cols else (1, 0)
+        row = []
+        for c, ch in enumerate(line):
+            if ch == " " or ch == "":
+                row.append((" ", None))
+            elif ch in OVAL_CHARS or (ch in EDGE_CHARS and lo <= c <= hi):
+                row.append((ch, "I"))
+            else:
+                row.append((ch, band(r)))
+        cells.append(row)
+    return cells
+
+
+def esc(s):
+    return s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+
+
+def runs(row):
     run, start = [], 0
     for i, (ch, code) in enumerate(row):
-        if ch in BLANKS or code == ".":
+        if code is None:
             if run:
                 yield start, run
                 run = []
@@ -82,25 +99,22 @@ def _runs(row):
         yield start, run
 
 
-def esc(s):
-    return s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
-
-
-def render(rows, palette):
-    ncols = max((len(r) for r in rows), default=0)
+def render(cells, palette):
+    ncols = max((len(r) for r in cells), default=0)
     W = PAD * 2 + ncols * CELL_W
-    H = PAD * 2 + len(rows) * CELL_H
+    H = PAD * 2 + len(cells) * CELL_H
     out = [
         f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W:.1f} {H:.1f}" '
         f'width="{W:.0f}" height="{H:.0f}" font-family="{FONT}" '
         f'font-size="{FS:.2f}" font-weight="600" role="img" '
-        f'aria-label="Firebat T8 Plus - macOS Sonoma on an Intel N100 (unofficial community artwork)">',
+        f'aria-label="Rainbow Apple silhouette with a blue intel wordmark across its centre '
+        f'-- macOS on Intel N100 (unofficial community artwork)">',
         f'<style>text{{font-family:{FONT};font-weight:600;font-size:{FS:.2f}px;'
         f'white-space:pre;}}</style>',
     ]
-    for r, row in enumerate(rows):
+    for r, row in enumerate(cells):
         y = PAD + r * CELL_H + BASE
-        for start, run in _runs(row):
+        for start, run in runs(row):
             text = esc("".join(ch for ch, _ in run))
             x = PAD + start * CELL_W
             tl = len(run) * CELL_W
@@ -114,13 +128,12 @@ def render(rows, palette):
 
 
 def main():
-    rows = load_grid()
+    cells = load_cells()
     for name, pal in (("light", PAL_LIGHT), ("dark", PAL_DARK)):
-        svg = render(rows, pal)
         with open(os.path.join(HERE, f"logo-{name}.svg"), "w",
                   encoding="utf-8", newline="\n") as f:
-            f.write(svg + "\n")
-    print(f"rendered logo-light.svg + logo-dark.svg  ({len(rows[0])}x{len(rows)} cells)")
+            f.write(render(cells, pal) + "\n")
+    print(f"rendered logo-light.svg + logo-dark.svg  ({len(cells[0])}x{len(cells)} cells)")
 
 
 if __name__ == "__main__":

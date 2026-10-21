@@ -1,13 +1,15 @@
-<h1 align="center">
+<p align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="assets/logo/logo-dark.svg">
-    <img alt="Firebat T8 Plus — macOS Sonoma on Intel N100" src="assets/logo/logo-light.svg" width="760">
+    <img alt="Rainbow Apple silhouette with the lowercase intel wordmark across its centre — macOS Sonoma on Intel N100" src="assets/logo/logo-light.svg" width="700">
   </picture>
-</h1>
+</p>
+
+<h1 align="center">Firebat T8 Plus</h1>
 
 <p align="center">
-  <strong>Firebat T8 Plus</strong> — macOS Sonoma on Intel N100<br>
-  <sub>Unofficial community artwork · classic-Mac rainbow × Intel silicon · not affiliated with Apple or Intel</sub>
+  <strong>macOS Sonoma on Intel N100</strong><br>
+  <sub>Unofficial community artwork · not affiliated with Apple or Intel</sub>
 </p>
 
 <p align="center">

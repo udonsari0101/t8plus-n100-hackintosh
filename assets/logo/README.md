@@ -1,30 +1,34 @@
 # Logo — character-art source
 
-An original, unofficial community emblem for this project: a classic-Macintosh
-six-colour **rainbow apple** rendered in Braille halftone, wired to an **Intel
-N100** silicon die drawn in box-drawing glyphs, inside an ANSI/BBS-style title
-frame. Inspired by classic text-mode / BBS character art — **not** an official
-Apple or Intel mark, and not a claim of any partnership.
+An original, unofficial community emblem for this project: a classic six-colour
+**rainbow Apple** silhouette (bitten, with a leaf) rendered as a dense ASCII /
+Unicode character matrix, with a bright-blue lowercase **`intel`** wordmark and
+oval crossing horizontally through its centre and protruding on both sides.
+Inspired by classic text-mode / ANSI art — **not** an official Apple or Intel
+mark, and not a claim of any partnership.
 
 | File | Role |
 |---|---|
-| `logo.txt` | Canonical character art — one glyph per cell (the plain-text fallback). |
-| `logo.cmap` | Colour map — one code per cell, aligned to `logo.txt` (`.` = transparent). |
-| `render_logo.py` | Deterministic generator: `logo.txt` + `logo.cmap` → the two SVGs. No dependencies. |
+| `logo.txt` | **Canonical source** — the editable UTF-8 character matrix (also the plain-text fallback). |
+| `render_logo.py` | Deterministic generator: derives colours from `logo.txt` and writes the two SVGs. No dependencies, no network. |
 | `logo-light.svg` | Colourised render tuned for the GitHub **light** canvas. |
 | `logo-dark.svg` | Colourised render tuned for the GitHub **dark** canvas. |
 
-Colour codes: `G Y O R V B` = the six-colour rainbow (apple); `c s e` =
-cool-blue / silver / steel (silicon); `W w` = wordmark / muted sub-label.
+**Colour rules** (applied by `render_logo.py`, so editing `logo.txt` is enough):
 
-Rebuild after editing the source:
+- The Intel oval + `intel` wordmark use the glyphs `@` and `*` (plus the edge
+  glyphs `. : +` that fall between the first and last `@`/`*` on a row) →
+  electric blue.
+- Every other apple-body glyph (`# & % + : .`) → one of six horizontal rainbow
+  bands by row (green at the top → cyan/blue at the bottom), per `BANDS`.
+
+Rebuild after editing the art:
 
 ```sh
 python render_logo.py
 ```
 
-The README swaps the two SVGs with `<picture>` + `prefers-color-scheme`, so the
-wordmark/silicon neutrals stay legible on both themes while the rainbow (vivid
-in both) and the transparent background carry across. Each colour run is
-positioned with `textLength` + `spacingAndGlyphs`, so alignment is exact
-regardless of the viewer's monospace font.
+The README swaps the two SVGs with `<picture>` + `prefers-color-scheme`. The
+background is transparent and every colour run is positioned with `textLength` +
+`spacingAndGlyphs`, so alignment is exact regardless of the viewer's monospace
+font.
