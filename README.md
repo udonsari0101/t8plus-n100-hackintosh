@@ -1,7 +1,7 @@
 <p align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="assets/logo/logo-dark.svg">
-    <img alt="Rainbow Apple silhouette with the lowercase intel wordmark across its centre — macOS Sonoma on Intel N100" src="assets/logo/logo-light.svg" width="700">
+    <img alt="Rainbow Apple silhouette with the lowercase intel wordmark across its centre — macOS Sonoma on Intel N100" src="assets/logo/logo-light.svg" width="640">
   </picture>
 </p>
 

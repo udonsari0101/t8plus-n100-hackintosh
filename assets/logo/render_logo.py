@@ -22,7 +22,7 @@ import os
 
 FS = 16.0
 CELL_W = FS * 0.60
-CELL_H = FS * 0.92
+CELL_H = FS * 1.30   # row step > glyph height: taller, better-balanced aspect (not squashed)
 PAD = FS * 0.5
 BASE = FS * 0.78
 FONT = ("ui-monospace,SFMono-Regular,Menlo,'Cascadia Mono',"
