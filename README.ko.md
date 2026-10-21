@@ -97,9 +97,10 @@ ocvalidate EFI/OC/config.plist
 └─ fetch-efi-components.command 잠금 파일을 읽는 다운로더
 ```
 
-**재현성.** `components.lock.json` 은 프로젝트/버전을 고정하고 자동 구성요소마다 `local_sha256` 을
-기록합니다. `fetch-efi-components.command` 는 각 아티팩트를 공식 릴리스에서 받습니다(아직 그 해시로
-다운로드를 검증하지는 않으니 직접 확인하세요).
+**재현성.** `components.lock.json` 은 프로젝트/버전을 고정하고 kext에 대해 `local_sha256` 을
+기록합니다(OpenCore `.efi` 바이너리와 직접 생성하는 UTBMap은 제외). `fetch-efi-components.command`
+는 각 아티팩트를 공식 릴리스에서 받습니다(아직 그 해시로 다운로드를 검증하지는 않으니 직접
+확인하세요).
 
 ## 04 / 제약
 

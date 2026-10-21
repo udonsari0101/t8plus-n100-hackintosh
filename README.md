@@ -99,7 +99,8 @@ and [`docs/Setup.md`](docs/Setup.md) for the details.
 ```
 
 **Reproducibility.** `components.lock.json` pins every project and version and records a
-`local_sha256` per automatable component; `fetch-efi-components.command` pulls each from its
+`local_sha256` for the kexts (not the OpenCore `.efi` binaries or your generated UTBMap);
+`fetch-efi-components.command` pulls each from its
 official release (it does not yet verify downloads against those hashes — verify them yourself).
 
 ## 04 / Limitations

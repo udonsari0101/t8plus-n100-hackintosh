@@ -12,7 +12,8 @@ condensed [`Setup.md`](Setup.md); read both. For *what works and what doesn't*, 
 > - The process is **not one-click.** Of 16 pinned components, **7 are fetched/generated manually**,
 >   and your **SMBIOS and USB map are machine-specific** (you create them yourself).
 > - Component downloads are **not checksum-verified** by the fetch script: `components.lock.json`
->   records a SHA-256 (`local_sha256`) for each automatable component, but the script does not check
+>   records a SHA-256 (`local_sha256`) for the kexts (not the OpenCore `.efi` binaries or your
+>   generated UTBMap), but the script does not check
 >   downloads against them. Verify artifacts yourself — against those hashes, or each project's
 >   official release.
 > - **Reproduction status:** the WORKING rows in the compatibility table are confirmed on the

@@ -3,7 +3,8 @@
 # Third-party binaries are NOT redistributed in this repo; this downloads them from their
 # official releases. Needs: curl, unzip, and (python3 or python).
 # NOTE: downloads are NOT checksum-verified. components.lock.json records a SHA-256 (local_sha256)
-# per automatable component, but this script does not check downloads against them. Verify
+# for the kexts (not the OpenCore .efi binaries or the generated UTBMap), but this script does not
+# check downloads against them. Verify
 # authenticity yourself -- against those hashes, or each project's official release.
 set -euo pipefail
 here=$(cd -- "$(dirname -- "$0")" && pwd -P)
