@@ -3,9 +3,12 @@
 A condensed guide. Assumes familiarity with OpenCore. All component versions are pinned in
 [`../components.lock.json`](../components.lock.json).
 
+> New to this? See the beginner-friendly [**Install Guide**](Install-Guide.md) for a step-by-step
+> walkthrough with a checklist and troubleshooting. This page is the quick reference.
+
 ## 1. Fetch components
 
-Run `./fetch-efi-components.command` (macOS/Linux, needs `curl` + `unzip` + `shasum`). It reads
+Run `./fetch-efi-components.command` (macOS/Linux, needs `curl` + `unzip` + `python3`). It reads
 `components.lock.json` and downloads OpenCore 1.0.7 and the Acidanthera kexts from their official
 GitHub releases into `EFI/OC/...`. For components it cannot fully automate, it prints the exact
 upstream project + version to fetch manually:
@@ -31,9 +34,9 @@ cp EFI/OC/config.template.plist EFI/OC/config.plist
 ocvalidate EFI/OC/config.plist        # must pass with no errors
 ```
 
-Boot-args in the template: `-v keepsyms=1 debug=0x100 alcid=1 -igfxvesa` (`-igfxvesa` forces the
-firmware framebuffer since there is no GPU driver). You can drop `-v debug=0x100 keepsyms=1` for a
-quiet boot once stable.
+Boot-args in the template: `-v keepsyms=1 debug=0x100 alcid=1 -igfxvesa -btlfxnvramcheck`
+(`-igfxvesa` forces the firmware framebuffer since there is no GPU driver; `-btlfxnvramcheck` is a
+BlueToolFixup flag). You can drop `-v debug=0x100 keepsyms=1` for a quiet boot once stable.
 
 ## 4. ACPI
 

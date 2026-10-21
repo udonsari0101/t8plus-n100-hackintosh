@@ -98,7 +98,9 @@ ocvalidate EFI/OC/config.plist
 **5 · Install** — copy `EFI/` to your USB/ESP FAT32 partition and select OpenCore in the firmware
 boot menu. Expect an **unaccelerated** desktop.
 
-Full walkthrough: [`docs/Setup.md`](docs/Setup.md) · Known limits: [`docs/Limitations.md`](docs/Limitations.md).
+New to Hackintosh? Follow the step-by-step [**Install Guide**](docs/Install-Guide.md) (prerequisites,
+manual components, SMBIOS/USB, validation, checklist, troubleshooting). Condensed reference:
+[`docs/Setup.md`](docs/Setup.md) · Known limits: [`docs/Limitations.md`](docs/Limitations.md).
 
 ## Repository layout
 
@@ -106,6 +108,7 @@ Full walkthrough: [`docs/Setup.md`](docs/Setup.md) · Known limits: [`docs/Limit
 .
 ├─ EFI/                        OpenCore tree (config.template.plist + ACPI SSDTs; no binaries)
 ├─ docs/
+│  ├─ Install-Guide.md         beginner-friendly, step-by-step walkthrough
 │  ├─ Setup.md                 condensed install guide
 │  └─ Limitations.md           what works, what does not, and why
 ├─ assets/readme/              original README artwork (static SVG)

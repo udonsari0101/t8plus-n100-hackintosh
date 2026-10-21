@@ -20,7 +20,7 @@
 ![Intel N100](https://img.shields.io/badge/Intel-N100_Alder_Lake--N-1f6feb?style=flat-square&labelColor=0b1220&logo=intel&logoColor=white)
 ![Display](https://img.shields.io/badge/display-GOP_only,_no_GPU_accel-8899a6?style=flat-square&labelColor=0b1220)
 
-[**빠른 시작**](#빠른-시작) · [호환성](#하드웨어-호환성) · [제약 사항](docs/Limitations.md) · [설치 가이드](docs/Setup.md)
+[**빠른 시작**](#빠른-시작) · [호환성](#하드웨어-호환성) · [제약 사항](docs/Limitations.md) · [설정](docs/Setup.md)
 
 </div>
 
@@ -99,7 +99,9 @@ ocvalidate EFI/OC/config.plist
 **5 · 설치** — `EFI/` 를 USB/ESP FAT32 파티션에 복사하고 펌웨어 부트 메뉴에서 OpenCore를 선택합니다.
 **가속되지 않은** 데스크톱이 표시됩니다.
 
-전체 안내: [`docs/Setup.md`](docs/Setup.md) · 알려진 제약: [`docs/Limitations.md`](docs/Limitations.md).
+Hackintosh가 처음이라면 단계별 [**Install Guide**](docs/Install-Guide.md)(영문: 사전 요건, 수동
+구성요소, SMBIOS/USB, 검증, 체크리스트, 문제 해결)를 따르세요. 요약 참고:
+[`docs/Setup.md`](docs/Setup.md) · 알려진 제약: [`docs/Limitations.md`](docs/Limitations.md).
 
 ## 저장소 구성
 
@@ -107,6 +109,7 @@ ocvalidate EFI/OC/config.plist
 .
 ├─ EFI/                        OpenCore 트리 (config.template.plist + ACPI SSDT; 바이너리 없음)
 ├─ docs/
+│  ├─ Install-Guide.md         초보자용 단계별 설치 안내 (영문)
 │  ├─ Setup.md                 간결한 설치 가이드
 │  └─ Limitations.md           동작/미동작 항목과 그 이유
 ├─ assets/readme/              README 아트워크 원본 (정적 SVG)
