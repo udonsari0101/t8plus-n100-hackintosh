@@ -174,6 +174,6 @@ text; most OpenCore issues name the precise kext, path, or config key at fault.
 This repository is validated **offline/host-side** (config template structure, `ocvalidate`,
 component pinning, documentation). That is **not** the same as a real fresh install: a complete,
 independent end-to-end reinstall on separate hardware has **not** been reproduced and certified
-here. The WORKING features in the [compatibility table](../README.md#hardware-compatibility) are
+here. The WORKING features in the [compatibility table](../README.md#01--compatibility) are
 from the author's own machine. Use this as a thoroughly documented starting point, and expect to
 adapt details for your exact unit.

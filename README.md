@@ -1,25 +1,27 @@
-```text
-+------------------------------------------+
-| FIREBAT T8 PLUS                     N100 |
-+------------------------------------------+
-| os       macOS Sonoma 14.8.7 (23J520)    |
-| boot     OpenCore 1.0.7                  |
-| gpu      8086:46D1  not accelerated      |
-| display  firmware GOP framebuffer        |
-| net      AX210 Wi-Fi/BT, RTL8111 ether   |
-+------------------------------------------+
-```
+<h1 align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/logo/logo-dark.svg">
+    <img alt="Firebat T8 Plus — macOS Sonoma on Intel N100" src="assets/logo/logo-light.svg" width="760">
+  </picture>
+</h1>
 
-`Firebat T8 Plus` — **macOS Sonoma on Intel N100.** A sanitized, reproducible OpenCore EFI
-for a **verified, unaccelerated** Sonoma baseline. The box boots and networks reliably on the
-firmware GOP framebuffer; the N100 iGPU has **no** macOS driver, so there is no Metal and no
-hardware video decode. The panel above is a project summary, not captured runtime output.
+<p align="center">
+  <strong>Firebat T8 Plus</strong> — macOS Sonoma on Intel N100<br>
+  <sub>Unofficial community artwork · classic-Mac rainbow × Intel silicon · not affiliated with Apple or Intel</sub>
+</p>
 
-![OpenCore](https://img.shields.io/badge/OpenCore-1.0.7-5c5c5c?style=flat&labelColor=2b2b2b)
-![macOS](https://img.shields.io/badge/macOS-Sonoma_23J520-5c5c5c?style=flat&labelColor=2b2b2b)
-![GPU](https://img.shields.io/badge/GPU_accel-not_implemented-5c5c5c?style=flat&labelColor=2b2b2b)
+<p align="center">
+  <img alt="OpenCore 1.0.7" src="https://img.shields.io/badge/OpenCore-1.0.7-5c5c5c?style=flat&labelColor=2b2b2b">
+  <img alt="macOS Sonoma 23J520" src="https://img.shields.io/badge/macOS-Sonoma_23J520-5c5c5c?style=flat&labelColor=2b2b2b">
+  <img alt="GPU acceleration — not implemented" src="https://img.shields.io/badge/GPU_accel-not_implemented-5c5c5c?style=flat&labelColor=2b2b2b">
+</p>
 
 `English` · [한국어](README.ko.md)   —   [00 Overview](#00--overview) · [01 Compatibility](#01--compatibility) · [02 Quick Start](#02--quick-start) · [03 Hardware](#03--hardware) · [04 Limitations](#04--limitations) · [05 Credits](#05--credits)
+
+> **macOS Sonoma on an Intel N100.** A sanitized, reproducible OpenCore EFI for a **verified,
+> unaccelerated** Sonoma baseline. macOS boots and networks reliably on the firmware GOP
+> framebuffer, but the N100 iGPU has **no** macOS driver — so there is no Metal and no hardware
+> video decode.
 
 ---
 

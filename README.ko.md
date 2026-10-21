@@ -1,25 +1,27 @@
-```text
-+------------------------------------------+
-| FIREBAT T8 PLUS                     N100 |
-+------------------------------------------+
-| os       macOS Sonoma 14.8.7 (23J520)    |
-| boot     OpenCore 1.0.7                  |
-| gpu      8086:46D1  not accelerated      |
-| display  firmware GOP framebuffer        |
-| net      AX210 Wi-Fi/BT, RTL8111 ether   |
-+------------------------------------------+
-```
+<h1 align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/logo/logo-dark.svg">
+    <img alt="Firebat T8 Plus — Intel N100에서 구동하는 macOS Sonoma" src="assets/logo/logo-light.svg" width="760">
+  </picture>
+</h1>
 
-`Firebat T8 Plus` — **Intel N100에서 구동하는 macOS Sonoma.** 검증된 **비가속** Sonoma
-베이스라인을 위한, 정제되고 재현 가능한 OpenCore EFI입니다. 펌웨어 GOP 프레임버퍼 위에서 부팅과
-네트워크가 안정적으로 동작하지만, N100 내장 GPU에는 macOS 드라이버가 **없어** Metal과 하드웨어
-비디오 디코딩이 동작하지 않습니다. 위 패널은 프로젝트 요약이며, 실제 런타임 출력이 아닙니다.
+<p align="center">
+  <strong>Firebat T8 Plus</strong> — Intel N100에서 구동하는 macOS Sonoma<br>
+  <sub>비공식 커뮤니티 아트워크 · 클래식 매킨토시 레인보우 × Intel 실리콘 · Apple·Intel과 무관</sub>
+</p>
 
-![OpenCore](https://img.shields.io/badge/OpenCore-1.0.7-5c5c5c?style=flat&labelColor=2b2b2b)
-![macOS](https://img.shields.io/badge/macOS-Sonoma_23J520-5c5c5c?style=flat&labelColor=2b2b2b)
-![GPU](https://img.shields.io/badge/GPU_accel-not_implemented-5c5c5c?style=flat&labelColor=2b2b2b)
+<p align="center">
+  <img alt="OpenCore 1.0.7" src="https://img.shields.io/badge/OpenCore-1.0.7-5c5c5c?style=flat&labelColor=2b2b2b">
+  <img alt="macOS Sonoma 23J520" src="https://img.shields.io/badge/macOS-Sonoma_23J520-5c5c5c?style=flat&labelColor=2b2b2b">
+  <img alt="GPU 가속 — 미구현" src="https://img.shields.io/badge/GPU_accel-not_implemented-5c5c5c?style=flat&labelColor=2b2b2b">
+</p>
 
 [English](README.md) · `한국어`   —   [00 개요](#00--개요) · [01 호환성](#01--호환성) · [02 빠른 시작](#02--빠른-시작) · [03 하드웨어](#03--하드웨어) · [04 제약](#04--제약) · [05 크레딧](#05--크레딧)
+
+> **Intel N100에서 구동하는 macOS Sonoma.** 검증된 **비가속** Sonoma 베이스라인을 위한, 정제되고
+> 재현 가능한 OpenCore EFI입니다. 펌웨어 GOP 프레임버퍼 위에서 부팅과 네트워크는 안정적으로
+> 동작하지만, N100 내장 GPU에는 macOS 드라이버가 **없어** Metal과 하드웨어 비디오 디코딩은
+> 동작하지 않습니다.
 
 ---
 
