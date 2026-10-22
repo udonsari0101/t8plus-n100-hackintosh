@@ -1,6 +1,17 @@
 #!/usr/bin/env python3
 """Render the rainbow-Apple x blue-intel character-art logo to themed SVGs.
 
+The emblem: a classic six-colour rainbow Apple silhouette (bitten, with a leaf)
+drawn as a dense ASCII / Unicode character matrix, with a bright-blue lowercase
+`intel` wordmark + oval crossing horizontally through its centre and protruding
+on both sides. Inspired by classic text-mode / ANSI art. An original, unofficial
+community emblem -- NOT an official Apple or Intel mark, and not a claim of any
+partnership.
+
+Files: `logo.txt` (editable source) -> `render_logo.py` (this generator) ->
+`logo-light.svg` + `logo-dark.svg` (themed renders for the GitHub light / dark
+canvas, swapped by the README via <picture> + prefers-color-scheme).
+
 Single source of truth: `logo.txt` -- the canonical UTF-8 character matrix
 (the plain-text fallback). Colours are DERIVED from it by deterministic rules,
 so editing the art is enough (no separate colour file to keep in sync):
