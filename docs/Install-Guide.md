@@ -1,7 +1,7 @@
 # Beginner-Friendly Install Guide
 
 A step-by-step walkthrough for reproducing the verified **macOS Sonoma 14.8.7 (23J520)**
-GOP baseline on a **Firebat T8 Plus (Intel N100)**. This is the detailed companion to the
+GOP baseline on a **T8 Plus (Intel N100)**. This is the detailed companion to the
 condensed [`Setup.md`](Setup.md); read both. For *what works and what doesn't*, see
 [`Limitations.md`](Limitations.md).
 
@@ -26,7 +26,7 @@ condensed [`Setup.md`](Setup.md); read both. For *what works and what doesn't*, 
 ## 1. Prerequisites
 
 **Hardware**
-- A Firebat T8 Plus (or equivalent **Intel N100 / Alder Lake-N**, iGPU `8086:46D1`). Other N100
+- A T8 Plus (or equivalent **Intel N100 / Alder Lake-N**, iGPU `8086:46D1`). Other N100
   boxes are *similar* but differ in USB layout and firmware — the USB map especially will differ.
 - A USB flash drive (8 GB+) for the macOS installer, and a separate small FAT32 volume (or the
   installer's ESP) for the EFI.

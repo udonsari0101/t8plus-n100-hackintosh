@@ -5,7 +5,7 @@
   </picture>
 </p>
 
-<h1 align="center">Firebat T8 Plus</h1>
+<h1 align="center">T8 Plus</h1>
 
 <p align="center">
   <strong>Intel N100에서 구동하는 macOS Sonoma</strong><br>
@@ -18,7 +18,7 @@
   <img alt="GPU 가속 — 미구현" src="https://img.shields.io/badge/GPU_accel-not_implemented-5c5c5c?style=flat&labelColor=2b2b2b">
 </p>
 
-[English](README.md) · `한국어`   —   [00 개요](#00--개요) · [01 호환성](#01--호환성) · [02 빠른 시작](#02--빠른-시작) · [03 하드웨어](#03--하드웨어) · [04 제약](#04--제약) · [05 크레딧](#05--크레딧)
+[English](README.md) · `한국어`   —   [00 개요](#00--개요) · [GPU 연구](#gpu-가속--연구-진행-중) · [01 호환성](#01--호환성) · [02 빠른 시작](#02--빠른-시작) · [03 하드웨어](#03--하드웨어) · [04 제약](#04--제약) · [05 크레딧](#05--크레딧)
 
 > **Intel N100에서 구동하는 macOS Sonoma.** 검증된 **비가속** Sonoma 베이스라인을 위한, 정제되고
 > 재현 가능한 OpenCore EFI입니다. 펌웨어 GOP 프레임버퍼 위에서 부팅과 네트워크는 안정적으로
@@ -35,6 +35,15 @@
 
 의도적으로 GPU가 없는 **안정적인 폴백 베이스라인** 입니다. 커스텀 N100 GPU 드라이버 연구는 별도로
 진행 중인 작업이며 이 저장소에 **포함되지 않습니다**.
+
+## GPU 가속 — 연구 진행 중
+
+Intel N100 / Alder Lake-N의 macOS GPU 가속을 위한 커스텀 드라이버를 **별도로 연구·개발**하고 있습니다.
+GPU 컴퓨트, 그래픽스, Metal 연동 및 하드웨어 미디어 가속을 목표로 합니다.
+
+실험용 드라이버 스택은 **별도로 관리**되며 이 공개 EFI 베이스라인에는 **포함되지 않습니다**. 현재 공개
+구성은 **펌웨어 GOP 기반 비가속** 환경으로, GPU 하드웨어 가속·Metal·하드웨어 영상 디코딩을 지원하지
+않습니다. **실제 기기에서의 가속 성공을 주장하지 않습니다** — "연구 진행 중"은 "동작"이 아닙니다.
 
 ## 01 / 호환성
 
@@ -84,11 +93,19 @@ ocvalidate EFI/OC/config.plist
 
 | | |
 |---|---|
-| 기기 | Firebat T8 Plus 미니 PC |
+| 기기 | T8 Plus 미니 PC (Intel N100) |
 | SoC | Intel N100 (Alder Lake-N, Xe-LP iGPU `8086:46D1`), 16 GB LPDDR5 |
 | 무선 | Intel AX210 — Wi-Fi + Bluetooth |
 | 유선 | Realtek RTL8111 이더넷 |
 | 디스플레이 | 펌웨어 GOP 프레임버퍼 (비가속) |
+
+**하드웨어 참고 자료:** [T8 공식 지원 페이지](https://kr.chatreey.com/support-kr/t8-mini-pc/).
+제조사 공식 페이지는 제품을 **T8** 로 표기합니다. 모든 T8 변형·포트 구성·출고 부품이 여기서 테스트한
+**T8 Plus** 구성과 동일하다는 검증이 아니라, 관련 하드웨어 참고 자료로만 취급하세요.
+
+> **테스트 네트워크 하드웨어.** 테스트한 시스템은 네트워크 어댑터 구성이 출고 상태에서 변경되어
+> 있습니다. 위 네트워크 호환성 결과(Intel AX210, Realtek RTL8111)는 **이 변경된 구성 기준**이며
+> 기본 출고 사양과 다를 수 있습니다.
 
 ```
 .
@@ -135,5 +152,5 @@ ocvalidate EFI/OC/config.plist
 
 개인적으로 정제한 베이스라인이며 상호운용성과 교육 목적을 위해 **있는 그대로(as-is)** 제공됩니다.
 Apple 소프트웨어나 서드파티 바이너리는 재배포하지 않습니다. 본인의 SMBIOS, 라이선스 준수, 비(非)Apple
-하드웨어에서 macOS를 구동하는 위험은 사용자 책임입니다. Apple·Intel·Firebat 및 언급된 프로젝트와
+하드웨어에서 macOS를 구동하는 위험은 사용자 책임입니다. Apple·Intel 및 언급된 프로젝트와
 제휴/보증 관계가 없습니다.

@@ -5,7 +5,7 @@
   </picture>
 </p>
 
-<h1 align="center">Firebat T8 Plus</h1>
+<h1 align="center">T8 Plus</h1>
 
 <p align="center">
   <strong>macOS Sonoma on Intel N100</strong><br>
@@ -18,7 +18,7 @@
   <img alt="GPU acceleration — not implemented" src="https://img.shields.io/badge/GPU_accel-not_implemented-5c5c5c?style=flat&labelColor=2b2b2b">
 </p>
 
-`English` · [한국어](README.ko.md)   —   [00 Overview](#00--overview) · [01 Compatibility](#01--compatibility) · [02 Quick Start](#02--quick-start) · [03 Hardware](#03--hardware) · [04 Limitations](#04--limitations) · [05 Credits](#05--credits)
+`English` · [한국어](README.ko.md)   —   [00 Overview](#00--overview) · [GPU Research](#gpu-acceleration--research-in-progress) · [01 Compatibility](#01--compatibility) · [02 Quick Start](#02--quick-start) · [03 Hardware](#03--hardware) · [04 Limitations](#04--limitations) · [05 Credits](#05--credits)
 
 > **macOS Sonoma on an Intel N100.** A sanitized, reproducible OpenCore EFI for a **verified,
 > unaccelerated** Sonoma baseline. macOS boots and networks reliably on the firmware GOP
@@ -35,6 +35,17 @@ third-party binaries — OpenCore and every kext are fetched from their official
 
 It is a **stable fallback baseline**, deliberately GPU-less. Custom N100 GPU-driver research is
 a separate, ongoing effort and is **not** part of this repository.
+
+## GPU Acceleration — Research in Progress
+
+Custom Intel N100 / Alder Lake-N GPU acceleration for macOS is an **ongoing research and
+development effort**. The work explores native GPU compute, graphics, Metal integration, and
+hardware media acceleration.
+
+The experimental driver stack is maintained **separately** and is **not** included in this
+public EFI baseline. The published configuration remains **firmware-GOP-only** and does **not**
+currently provide hardware GPU acceleration, Metal, or hardware video decoding. **No real-device
+acceleration success is claimed** — "research in progress" is not "working."
 
 ## 01 / Compatibility
 
@@ -85,11 +96,20 @@ and [`docs/Setup.md`](docs/Setup.md) for the details.
 
 | | |
 |---|---|
-| Machine | Firebat T8 Plus mini PC |
+| Machine | T8 Plus mini PC (Intel N100) |
 | SoC | Intel N100 (Alder Lake-N, Xe-LP iGPU `8086:46D1`), 16 GB LPDDR5 |
 | Wireless | Intel AX210 — Wi-Fi + Bluetooth |
 | Wired | Realtek RTL8111 Ethernet |
 | Display | firmware GOP framebuffer (unaccelerated) |
+
+**Hardware reference:** [Official T8 support page](https://www.chatreey.com/support/t8-mini-pc/).
+The vendor's official page lists the product as **T8**; treat it as a related-hardware
+reference, not independently verified confirmation that every T8 variant, port layout, or
+factory component matches this tested **T8 Plus** configuration.
+
+> **Tested network hardware.** The tested system has a user-modified network adapter
+> configuration. The network compatibility results above (Intel AX210, Realtek RTL8111)
+> describe **this tested hardware** and may differ from the stock factory configuration.
 
 ```
 .
@@ -137,4 +157,4 @@ Standing on the open-source Hackintosh ecosystem, all fetched from official rele
 Personal, sanitized baseline provided **as-is** for interoperability and education. No Apple
 software or third-party binaries are redistributed. You are responsible for your own SMBIOS,
 licensing, and the risks of running macOS on non-Apple hardware. Not affiliated with Apple,
-Intel, Firebat, or any listed project.
+Intel, or any listed project.
